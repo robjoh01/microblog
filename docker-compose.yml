@@ -1,0 +1,50 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: dbserver
+    environment:
+      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_DATABASE: "microblog"
+      MYSQL_USER: "microblog"
+      MYSQL_PASSWORD: pass
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  prod:
+    image: microblog:1.0.0-prod
+    depends_on:
+      - mysql
+    container_name: microblog
+    build:
+      context: .
+      dockerfile: docker/Dockerfile_prod
+    ports:
+      - "8000:5000"
+    environment:
+      SECRET_KEY: ${SECRET_KEY}
+      DATABASE_URL: "mysql+pymysql://microblog:${DATABASE_PASSWORD}@dbserver/microblog"
+    links:
+      - mysql:dbserver
+    restart: unless-stopped
+    # command: ./boot.sh
+
+  test:
+    depends_on:
+      - mysql
+    build:
+      context: .
+      dockerfile: docker/Dockerfile_test
+    container_name: test_microblog
+    volumes:
+      - ./app:/home/microblog/app
+      - ./tests:/home/microblog/tests
+    environment:
+      DATABASE_URL: "mysql+pymysql://microblog:${DATABASE_PASSWORD}@dbserver/microblog"
+    links:
+      - mysql:dbserver
+    # command: make test
+
+volumes:
+  db_data:
