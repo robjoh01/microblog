@@ -1,3 +1,11 @@
+## 13.0.3 (2024-11-17)
+
+### Fix
+
+- **deployment.yml**: issues with docker workflow
+- **testing.yml**: fix syntax errors
+- **testing.yml**: issues with testing.yml
+
 ## 13.0.2 (2024-11-17)
 
 ### Fix
