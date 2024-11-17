@@ -1,8 +1,11 @@
 from app import create_app, db
 from app.models import User, Post
-# from app.config import DevConfig
 
+# Development
+# from app.config import DevConfig
 # app = create_app(DevConfig)
+
+# Production
 app = create_app()
 
 @app.shell_context_processor

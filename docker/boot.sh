@@ -1,5 +1,7 @@
 #!/bin/sh
 
+echo "Starting application..."
+
 source .venv/bin/activate
 while true; do
     flask db upgrade

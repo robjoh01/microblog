@@ -1,3 +1,13 @@
+## 12.0.0 (2024-11-16)
+
+### BREAKING CHANGE
+
+- Committed by Robin Johannesson.
+
+### Feat
+
+- added docker support
+
 ## 11.1.0 (2024-11-15)
 
 ### Feat
