@@ -52,7 +52,7 @@ jobs:
       # Build and tag Docker image
       - name: Build and tag Docker image
         run: |
-          docker compose build -t ${{ secrets.DOCKER_USERNAME }}/microblog:${{ env.VERSION }} .
+          docker-compose build
 
           docker tag ${{ secrets.DOCKER_USERNAME }}/microblog:${{ env.VERSION }} ${{ secrets.DOCKER_USERNAME }}/microblog:latest
 
@@ -60,3 +60,4 @@ jobs:
       - name: Push Docker image
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/microblog:${{ env.VERSION }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/microblog:latest
