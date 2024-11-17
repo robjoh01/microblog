@@ -1,3 +1,9 @@
+## 13.0.10 (2024-11-17)
+
+### Fix
+
+- **deployment.yml**: change docker action setup
+
 ## 13.0.9 (2024-11-17)
 
 ### Fix
