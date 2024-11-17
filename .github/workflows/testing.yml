@@ -9,7 +9,7 @@ on:
       - master # Trigger on pull request targeting the master branch
 
 jobs:
-  test:
+  testing:
     runs-on: ubuntu-latest # You can adjust this to use other runners if needed
 
     steps:
@@ -24,7 +24,7 @@ jobs:
           python-version: "3.8" # Adjust Python version if needed
 
       # Step 3: Install dependencies
-      - name: Install dependencies from requirements/test.txt
+      - name: Install dependencies
         run: make install-test
 
       # Step 4: Run tests using 'make test'
