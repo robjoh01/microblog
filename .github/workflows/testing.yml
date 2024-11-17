@@ -9,7 +9,7 @@ on:
       - master # Trigger on pull request targeting the master branch
 
 jobs:
-  testing:
+  tests:
     runs-on: ubuntu-latest # You can adjust this to use other runners if needed
 
     steps:
@@ -21,7 +21,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.8" # Adjust Python version if needed
+          python-version: "3.11"
 
       # Step 3: Install dependencies
       - name: Install dependencies
