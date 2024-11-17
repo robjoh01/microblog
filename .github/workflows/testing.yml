@@ -1,7 +1,9 @@
 name: Test and Validate
 
 on:
-  on: [workflow_call]
+  workflow_call:
+    branches:
+      - master # Trigger on pull request targeting the master branch
   push:
     branches:
       - master # Trigger on push to the master branch (or specify other branches as needed)
