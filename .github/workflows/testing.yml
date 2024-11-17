@@ -1,15 +1,19 @@
 name: Test and Validate
 
 on:
+  # Allow this workflow to be reusable by other workflows
   workflow_call:
-    branches:
-      - master # Trigger on pull request targeting the master branch
+    inputs: {} # Define inputs if needed for reusable workflows
+
+  # Trigger on push to the master branch
   push:
     branches:
-      - master # Trigger on push to the master branch (or specify other branches as needed)
+      - master
+
+  # Trigger on pull requests targeting the master branch
   pull_request:
     branches:
-      - master # Trigger on pull request targeting the master branch
+      - master
 
 jobs:
   tests:
