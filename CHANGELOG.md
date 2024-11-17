@@ -1,3 +1,9 @@
+## 13.0.13 (2024-11-17)
+
+### Fix
+
+- **docker-compose.yml**: change the default image for prod docker
+
 ## 13.0.12 (2024-11-17)
 
 ### Fix
