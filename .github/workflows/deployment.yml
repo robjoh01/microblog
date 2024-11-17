@@ -44,13 +44,15 @@ jobs:
 
       # Install Docker and Docker Compose using a specific action
       - name: Set up Docker
-        uses: docker-practice/actions-setup-docker@master
+        uses: KengoTODA/actions-setup-docker-compose@v1
         timeout-minutes: 12
+        with:
+          version: "2.14.2" # the full version of `docker-compose` command
 
       # Build and tag Docker image
       - name: Build and tag Docker image
         run: |
-          docker-compose build ${{ secrets.DOCKER_USERNAME }}/microblog:${{ env.VERSION }} .
+          docker compose build -t ${{ secrets.DOCKER_USERNAME }}/microblog:${{ env.VERSION }} .
 
           docker tag ${{ secrets.DOCKER_USERNAME }}/microblog:${{ env.VERSION }} ${{ secrets.DOCKER_USERNAME }}/microblog:latest
 
