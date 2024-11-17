@@ -1,3 +1,9 @@
+## 13.0.11 (2024-11-17)
+
+### Fix
+
+- **deployment.yml**: issues with docker deployment
+
 ## 13.0.10 (2024-11-17)
 
 ### Fix
