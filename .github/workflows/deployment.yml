@@ -46,9 +46,9 @@ jobs:
       - name: Set up Docker
         uses: docker-practice/actions-setup-docker@master
         timeout-minutes: 12
-          run: |
-            docker-compose build -t ${{ secrets.DOCKER_USERNAME }}/microblog:${{ env.VERSION }} .
+      - run: |
+          docker-compose build -t ${{ secrets.DOCKER_USERNAME }}/microblog:${{ env.VERSION }} .
 
-            docker tag ${{ secrets.DOCKER_USERNAME }}/microblog:${{ env.VERSION }} ${{ secrets.DOCKER_USERNAME }}/microblog:latest
+          docker tag ${{ secrets.DOCKER_USERNAME }}/microblog:${{ env.VERSION }} ${{ secrets.DOCKER_USERNAME }}/microblog:latest
 
-            docker push ${{ secrets.DOCKER_USERNAME }}/microblog:${{ env.VERSION }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/microblog:${{ env.VERSION }}
