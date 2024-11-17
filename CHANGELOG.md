@@ -1,3 +1,9 @@
+## 13.0.4 (2024-11-17)
+
+### Fix
+
+- **deployment.yml**: issues with docker workflow
+
 ## 13.0.3 (2024-11-17)
 
 ### Fix
