@@ -15,7 +15,7 @@ jobs:
     steps:
       # Step 1: Checkout the repository
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       # Step 2: Set up Python environment (optional if Python isn't pre-installed)
       - name: Set up Python
@@ -25,13 +25,8 @@ jobs:
 
       # Step 3: Install dependencies
       - name: Install dependencies from requirements/test.txt
-        run: |
-          python -m venv venv
-          . venv/bin/activate
-          pip install -r requirements/test.txt
+        run: make install-test
 
       # Step 4: Run tests using 'make test'
       - name: Run tests
-        run: |
-          . venv/bin/activate  # Activate virtual environment
-          make test            # Run tests via Makefile
+        run: make test # Run tests via Makefile
