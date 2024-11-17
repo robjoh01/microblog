@@ -13,7 +13,7 @@ services:
       - "3306:3306"
 
   prod:
-    image: microblog:1.0.0-prod
+    image: microblog:latest
     depends_on:
       - mysql
     container_name: microblog
