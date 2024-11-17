@@ -1,3 +1,9 @@
+## 13.0.12 (2024-11-17)
+
+### Fix
+
+- **deployment.yml**: change the build process of docker deploy
+
 ## 13.0.11 (2024-11-17)
 
 ### Fix
