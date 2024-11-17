@@ -8,7 +8,6 @@
 
 ### Fix
 
-- **deployment.yml**: issues with docker workflow
 - **testing.yml**: fix syntax errors
 - **testing.yml**: issues with testing.yml
 
