@@ -1,6 +1,7 @@
-name: Run Tests
+name: Test and Validate
 
 on:
+  on: [workflow_call]
   push:
     branches:
       - master # Trigger on push to the master branch (or specify other branches as needed)

@@ -6,9 +6,12 @@ on:
       - published
 
 jobs:
+  tests:
+    uses: ./.github/workflows/testing.yml
+
   deploy:
     runs-on: ubuntu-latest
-    needs: tests
+    needs: [tests]
 
     steps:
       - name: Checkout code
