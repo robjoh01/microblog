@@ -50,11 +50,7 @@ jobs:
       # Build and tag Docker image
       - name: Build and tag Docker image
         run: |
-          set -x
-
-          docker version
-
-          docker-compose build -t ${{ secrets.DOCKER_USERNAME }}/microblog:${{ env.VERSION }} .
+          docker-compose build ${{ secrets.DOCKER_USERNAME }}/microblog:${{ env.VERSION }} .
 
           docker tag ${{ secrets.DOCKER_USERNAME }}/microblog:${{ env.VERSION }} ${{ secrets.DOCKER_USERNAME }}/microblog:latest
 
