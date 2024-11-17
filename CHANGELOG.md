@@ -1,3 +1,9 @@
+## 13.0.7 (2024-11-17)
+
+### Fix
+
+- **deployment.yml**: docker compose issues
+
 ## 13.0.6 (2024-11-17)
 
 ### Fix
