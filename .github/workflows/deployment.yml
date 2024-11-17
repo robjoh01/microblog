@@ -52,12 +52,12 @@ jobs:
       # Build and tag Docker image
       - name: Build and tag Docker image
         run: |
-          docker-compose build
-
-          docker tag ${{ secrets.DOCKER_USERNAME }}/microblog:${{ env.VERSION }} ${{ secrets.DOCKER_USERNAME }}/microblog:latest
+          # Build the Docker image using the specified Dockerfile and tag it with multiple tags
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/microblog:${{ env.VERSION }} -t ${{ secrets.DOCKER_USERNAME }}/microblog:latest -f docker/Dockerfile_prod .
 
       # Push Docker image
       - name: Push Docker image
         run: |
+          # Push both tags to Docker Hub
           docker push ${{ secrets.DOCKER_USERNAME }}/microblog:${{ env.VERSION }}
           docker push ${{ secrets.DOCKER_USERNAME }}/microblog:latest
