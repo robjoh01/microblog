@@ -1,3 +1,9 @@
+## 13.0.9 (2024-11-17)
+
+### Fix
+
+- **deployment.yml**: fix spelling mistake
+
 ## 13.0.8 (2024-11-17)
 
 ### Fix
