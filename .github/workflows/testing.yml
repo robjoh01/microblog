@@ -1,0 +1,39 @@
+name: Test and Validate
+
+on:
+  # Allow this workflow to be reusable by other workflows
+  workflow_call:
+    inputs: {} # Define inputs if needed for reusable workflows
+
+  # Trigger on push to the master branch
+  push:
+    branches:
+      - master
+
+  # Trigger on pull requests targeting the master branch
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest # You can adjust this to use other runners if needed
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Python environment (optional if Python isn't pre-installed)
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: make install-test
+
+      # Step 4: Run tests using 'make test'
+      - name: Run tests
+        run: make test # Run tests via Makefile

@@ -1,0 +1,63 @@
+name: Deploy onto Docker
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  deploy-tests:
+    uses: ./.github/workflows/testing.yml
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [deploy-tests]
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Python environment
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      # Install commitizen
+      - name: Install commitizen
+        run: pip install commitizen
+
+      # Get the new version from Commitizen
+      - name: Get the new version from Commitizen bump
+        run: |
+          version=$(cz version -p)
+          echo "New version: $version"
+          echo "VERSION=$version" >> $GITHUB_ENV
+
+      # Log in to DockerHub
+      - name: Log in to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Install Docker and Docker Compose using a specific action
+      - name: Set up Docker
+        uses: KengoTODA/actions-setup-docker-compose@v1
+        timeout-minutes: 12
+        with:
+          version: "2.14.2" # the full version of `docker-compose` command
+
+      # Build and tag Docker image
+      - name: Build and tag Docker image
+        run: |
+          # Build the Docker image using the specified Dockerfile and tag it with multiple tags
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/microblog:${{ env.VERSION }} -t ${{ secrets.DOCKER_USERNAME }}/microblog:latest -f docker/Dockerfile_prod .
+
+      # Push Docker image
+      - name: Push Docker image
+        run: |
+          # Push both tags to Docker Hub
+          docker push ${{ secrets.DOCKER_USERNAME }}/microblog:${{ env.VERSION }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/microblog:latest

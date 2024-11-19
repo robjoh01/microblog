@@ -2,6 +2,7 @@ Microblog
 ===================
 
 [![Join the chat at https://gitter.im/dbwebb-se/devops](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/dbwebb-se/devops?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+![Testing Status](https://github.com/robjoh01/microblog/actions/workflows/testing.yml/badge.svg)
 
 Course material for a devops course, aimed at a Swedish course in computer science on University level new to devops. The students are to further develop this application and integreate it with new tools.
 

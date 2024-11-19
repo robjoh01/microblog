@@ -1,0 +1,35 @@
+ # syntax=docker/dockerfile:1.4
+FROM python:3.8-alpine
+RUN adduser -D microblog
+
+WORKDIR /home/microblog
+
+# Install required tools including 'make'
+RUN apk update && apk add --no-cache \
+    make=4.4.1-r2 \
+    gcc=13.2.1_git20240309-r0 \
+    musl-dev=1.2.5-r0 \
+    libffi-dev=3.4.6-r0
+
+# COPY . .
+COPY requirements requirements
+COPY requirements/test.txt docker/test.sh Makefile ./
+COPY .coveragerc .pylintrc pytest.ini ./
+
+# Install Python dependencies for testing
+RUN <<-EOF
+    python -m venv .venv
+    .venv/bin/pip3 install -r requirements/test.txt
+EOF
+
+# Set up permissions
+RUN <<-EOF
+    chmod +x test.sh
+    chown -R microblog:microblog ./
+EOF
+
+# Run as the microblog user
+USER microblog
+
+# Run the boot script
+ENTRYPOINT ["./test.sh"]
