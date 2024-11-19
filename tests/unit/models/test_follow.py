@@ -1,11 +1,13 @@
+"""
+Tests for follow and unfollow methods
+"""
+
 # pylint: disable=redefined-outer-name
+# import pytest (unused-import)
+# from unittest import mock (unused-import)
 from datetime import datetime, timedelta
-from unittest import mock
-import pytest
 from app.models import User, Post
 from app import db
-
-...
 
 def test_follow(test_app): # pylint: disable=unused-argument
     """
