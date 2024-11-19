@@ -9,31 +9,37 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from app import db, login
 
-followers = db.Table('followers',
-    db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
-    db.Column('followed_id', db.Integer, db.ForeignKey('user.id'))
+followers = db.Table(
+    "followers",
+    db.Column("follower_id", db.Integer, db.ForeignKey("user.id")),
+    db.Column("followed_id", db.Integer, db.ForeignKey("user.id")),
 )
+
 
 class User(UserMixin, db.Model):
     """
     Represetns a system User
     """
-    id = db.Column(db.Integer, primary_key=True) 
+
+    id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
     about_me = db.Column(db.String(140))
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
-    posts = db.relationship('Post', backref='author', lazy='dynamic')
+    posts = db.relationship("Post", backref="author", lazy="dynamic")
     followed = db.relationship(
-        'User', secondary=followers,
+        "User",
+        secondary=followers,
         primaryjoin=(followers.c.follower_id == id),
         secondaryjoin=(followers.c.followed_id == id),
-        backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
+        backref=db.backref("followers", lazy="dynamic"),
+        lazy="dynamic",
+    )
 
     def __repr__(self):
-        return f'<User {self.username}, {self.email}>'
-    
+        return f"<User {self.username}, {self.email}>"
+
     def set_password(self, password):
         """
         Set password to generated password hash
@@ -65,16 +71,15 @@ class User(UserMixin, db.Model):
         """
         Check if user is followed
         """
-        return self.followed.filter(
-            followers.c.followed_id == user.id).count() > 0
+        return self.followed.filter(followers.c.followed_id == user.id).count() > 0
 
     def followed_posts(self):
         """
         Get followed posts
         """
         followed = Post.query.join(
-            followers, (followers.c.followed_id == Post.user_id)).filter(
-                followers.c.follower_id == self.id)
+            followers, (followers.c.followed_id == Post.user_id)
+        ).filter(followers.c.follower_id == self.id)
         own = Post.query.filter_by(user_id=self.id)
         return followed.union(own).order_by(Post.timestamp.desc())
 
@@ -90,20 +95,22 @@ class User(UserMixin, db.Model):
         """
         Return Gravatar URL based on email
         """
-        digest = md5(self.email.lower().encode('utf-8')).hexdigest()
-        url = f'https://www.gravatar.com/avatar/{digest}?d=retro&s={size}'
+        digest = md5(self.email.lower().encode("utf-8")).hexdigest()
+        url = f"https://www.gravatar.com/avatar/{digest}?d=retro&s={size}"
         current_app.logger.debug(f"Get gravatar {url}")
         return url
+
 
 class Post(db.Model):
     """
     Represents a User Post
     """
+
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(140))
     body = db.Column(db.String(140))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
 
     def __repr__(self):
-        return f'<Post: {self.title}: {self.body} By user_id {self.user_id}>'
+        return f"<Post: {self.title}: {self.body} By user_id {self.user_id}>"
