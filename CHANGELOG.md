@@ -88,6 +88,8 @@
 
 ## 12.0.0 (2024-11-16)
 
+- **User**: follow and unfollow users
+
 ### BREAKING CHANGE
 
 - Committed by Robin Johannesson.
