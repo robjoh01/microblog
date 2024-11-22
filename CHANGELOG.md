@@ -1,3 +1,14 @@
+## 14.0.0 (2024-11-22)
+
+### Feat
+
+- **User**: follow and unfollow users
+
+### Fix
+
+- issues with file formatting
+- issues related to unit testing
+
 ## 13.0.13 (2024-11-17)
 
 ### Fix
