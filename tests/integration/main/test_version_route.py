@@ -5,6 +5,7 @@ Test route for version route, app/main/routes
 import tomllib
 from bs4 import BeautifulSoup
 
+
 def test_get_app_version(client):
     """
     Test that can edit user profile.
@@ -21,4 +22,6 @@ def test_get_app_version(client):
         version = version_element.text.strip()
 
         assert version_element is not None, "Version element not found in the response."
-        assert version == app_version, f"Expected version {app_version}, but got {version}."
+        assert (
+            version == app_version
+        ), f"Expected version {app_version}, but got {version}."

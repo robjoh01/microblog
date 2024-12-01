@@ -1,6 +1,7 @@
 """
 Contains routes for main purpose of app
 """
+
 import tomllib
 from datetime import datetime
 from flask import render_template, flash, redirect, url_for, request, current_app
@@ -9,6 +10,7 @@ from app import db
 from app.main.forms import EditProfileForm, PostForm
 from app.models import User, Post
 from app.main import bp
+
 
 @bp.before_request
 def before_request():
@@ -117,6 +119,7 @@ def unfollow(username):
     db.session.commit()
     flash(f"You are not following {username}.")
     return redirect(url_for("main.user", username=username))
+
 
 @bp.route("/version")
 def version():
