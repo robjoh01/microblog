@@ -10,11 +10,6 @@ $(cd /etc/nginx/sites-enabled && sudo ln -s /etc/nginx/sites-available/$conf_fil
 sudo nginx -t && sudo service nginx restart
 
 
-
-# https
-echo "deb http://deb.debian.org/debian stretch-backports main" >> /etc/apt/sources.list
-echo "deb http://deb.debian.org/debian stretch-backports main contrib non-free" >> /etc/apt/sources.list
-
 sudo apt-get update
 sudo apt-get install -y python-certbot-nginx -t stretch-backports
 
