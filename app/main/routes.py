@@ -1,6 +1,8 @@
 """
 Contains routes for main purpose of app
 """
+
+import tomllib
 from datetime import datetime
 from flask import render_template, flash, redirect, url_for, request, current_app
 from flask_login import current_user, login_required
@@ -117,3 +119,14 @@ def unfollow(username):
     db.session.commit()
     flash(f"You are not following {username}.")
     return redirect(url_for("main.user", username=username))
+
+
+@bp.route("/version")
+def version():
+    """
+    Route for version
+    """
+    with open(".cz.toml", "rb") as f:
+        data = tomllib.load(f)
+        app_version = data["tool"]["commitizen"]["version"]
+        return render_template("version.html", version=app_version)
